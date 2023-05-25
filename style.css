@@ -7,6 +7,47 @@
 	cursor: none;
 }
 
+
+
+@media screen and (max-width: 991px) {
+	.slide {
+	  font-size: 8px;
+	  line-height: 1.6em;
+	}
+	.rotate-vertical{
+		font-size: 50px;
+	}
+	.melodies{
+		font-size: 1px;
+		white-space:pre-wrap;
+	}
+
+	.description{
+		left: 5%;
+	}
+  }
+
+
+  @media screen and (max-width: 560px) {
+	.slide {
+	  font-size: 8px;
+	  line-height: 1.6em;
+	}
+	.rotate-vertical{
+		font-size: 20px;
+	}
+	.melodies h2{
+		font-size: 1px;
+		white-space:pre-wrap;
+	}
+
+	.description{
+		top: 70%;
+		left: 10%;
+		font-size: 1px;
+	}
+  }
+
 /* ---- particles.js container ---- */
 #particles-js {
 	width: 100%;
@@ -39,7 +80,7 @@
 	white-space: nowrap;
 }
 
-.para h2 {
+.melodies {
 	position: relative;
 	font-size: 40px;
 	margin-bottom: 10px;

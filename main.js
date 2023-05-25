@@ -33,13 +33,3 @@ particlesJS("particles-js", {
   retina_detect: true,
 });
 
-
-let cont = document.querySelector('.container');
-let layers = document.querySelector('.hero');
-
-
-cont.onscroll = function () {
-  let X = cont.scrollTop;
-
-  layers.style.left = X/12 + 'px';
-}
