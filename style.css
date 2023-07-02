@@ -8,7 +8,6 @@
 }
 
 
-
 @media screen and (max-width: 991px) {
 	.slide {
 	  font-size: 8px;
@@ -184,14 +183,19 @@
 
 
 .description {
+	width: 15%;
+	display: block;
 	position: fixed;
 	bottom: 10%;
 	right: 60%;
+}
+
+.description p{
 	color: #92d97e8e;
 	padding: 10px;
-	font-size: 14px;
-	border-radius: 5px;
+	font-size: 20px;
 	line-height: 2em;
+	white-space:pre-line;
 }
 
 .scroll {
