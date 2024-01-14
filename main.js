@@ -1,12 +1,12 @@
-import * as THREE from 'https://cdn.skypack.dev/three';
+import * as THREE from 'three';
 
 import {
   RGBELoader,
-} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/RGBELoader.js'
+} from 'three/examples/jsm/loaders/RGBELoader'
 
 import {
   OrbitControls
-} from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js'
+} from 'three/examples/jsm/controls/OrbitControls'
 
 const scene = new THREE.Scene();
 
@@ -36,29 +36,29 @@ window.addEventListener("resize", () => {
 // Geometry
 
 let diffMap = new THREE.TextureLoader().load("./graphics/planet_textureAzure.jpg");
-diffMap.encoding = THREE.sRGBEncoding;
+diffMap.colorSpace = THREE.SRGBColorSpace;
 
 
 let roughMap = new THREE.TextureLoader().load("./graphics/planet_textureAuric.jpg");
-roughMap.encoding = THREE.sRGBEncoding;
+roughMap.colorSpace = THREE.SRGBColorSpace;
 let dispMap = new THREE.TextureLoader().load("./graphics/planet_textureChondrite.jpg");
-dispMap.encoding = THREE.sRGBEncoding;
+dispMap.colorSpace = THREE.SRGBColorSpace;
 let aoMap2 = new THREE.TextureLoader().load("./graphics/planet_textureBurnt.jpg");
-aoMap2.encoding = THREE.sRGBEncoding;
+aoMap2.colorSpace = THREE.SRGBColorSpace;
 
 let map5 = new THREE.TextureLoader().load("./graphics/planet_textureBlueGiant.jpg");
-map5.encoding = THREE.sRGBEncoding;
+map5.colorSpace = THREE.SRGBColorSpace;
 let map6 = new THREE.TextureLoader().load("./graphics/planet_textureCyanic.jpg");
-map6.encoding = THREE.sRGBEncoding;
+map6.colorSpace = THREE.SRGBColorSpace;
 let map7 = new THREE.TextureLoader().load("./graphics/planet_textureChlorine.jpg");
-map7.encoding = THREE.sRGBEncoding;
+map7.colorSpace = THREE.SRGBColorSpace;
 
 let map8 = new THREE.TextureLoader().load("./graphics/planet_textureDust.jpg");
-map8.encoding = THREE.sRGBEncoding;
+map8.colorSpace = THREE.SRGBColorSpace;
 let map9 = new THREE.TextureLoader().load("./graphics/planet_textureDesertic.jpg");
-map9.encoding = THREE.sRGBEncoding;
+map9.colorSpace = THREE.SRGBColorSpace;
 let map10 = new THREE.TextureLoader().load("./graphics/planet_textureFluorescent.jpg");
-map10.encoding = THREE.sRGBEncoding;
+map10.colorSpace = THREE.SRGBColorSpace;
 
 
 let matArray = [
@@ -66,7 +66,7 @@ let matArray = [
 ]
 
 
-// MATERIALS 
+// MATERIALS
 // color: 0xf0e7e7,
 // map: diffMap,
 // normalMap: normalMap,
@@ -92,7 +92,7 @@ let dodeMat = new THREE.MeshPhysicalMaterial({
   // envMap: hdrEquirect,
 })
 let dode = new THREE.Mesh(
-  new THREE.SphereBufferGeometry(10, 50, 50),
+  new THREE.SphereGeometry(10, 50, 50),
   dodeMat
 )
 btn2.addEventListener("click", function () {
@@ -113,7 +113,7 @@ btn2.addEventListener("click", function () {
 const moonMat = new THREE.TextureLoader().load("/graphics/3Uq2YE8l.jpg")
 const normalMoonMat = new THREE.TextureLoader().load("./normalDX.png")
 
-var moonGeometry = new THREE.SphereBufferGeometry(3.5, 50, 50);
+var moonGeometry = new THREE.SphereGeometry(3.5, 50, 50);
 var moonMaterial = new THREE.MeshPhongMaterial({
   map: moonMat,
   normalMap: normalMoonMat
@@ -143,7 +143,7 @@ function addStar() {
   starMatNR.wrapS = THREE.RepeatWrapping;
   starMatNR.wrapT = THREE.RepeatWrapping;
 
-  const geometry = new THREE.SphereBufferGeometry(0.5, 24, 24);
+  const geometry = new THREE.SphereGeometry(0.5, 24, 24);
   const material = new THREE.MeshStandardMaterial({
     normalMap: starMatNR,
   })
