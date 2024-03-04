@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
@@ -29,7 +28,6 @@ const texturePaths = [
   "./graphics/planet_textureBlueGiant.jpg",
   "./graphics/planet_textureCyanic.jpg",
   "./graphics/planet_textureChlorine.jpg",
-  "./graphics/planet_textureDust.jpg",
   "./graphics/planet_textureDesertic.jpg",
   "./graphics/planet_textureFluorescent.jpg"
 ];
@@ -69,8 +67,8 @@ function getRandomTexture(textures) {
 }
 
 // SATELLITE
-const moonMat = new THREE.TextureLoader().load("/graphics/3Uq2YE8l.jpg")
-const normalMoonMat = new THREE.TextureLoader().load("./normalDX.png")
+const moonMat = new THREE.TextureLoader().load("./graphics/3Uq2YE8l.jpg")
+const normalMoonMat = new THREE.TextureLoader().load("./images/moon/normalDX.png")
 var moonGeometry = new THREE.SphereGeometry(3.5, 50, 50);
 var moonMaterial = new THREE.MeshPhongMaterial({
   map: moonMat,
@@ -84,9 +82,9 @@ var spotLight = new THREE.DirectionalLight(0xffffff);
 spotLight.position.set(50, 50, 50);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
-controls.enableZoom = false;
-controls.enableDamping = true;
+controls.enablePan = true;
+controls.enableZoom = true;
+controls.enableDamping = false;
 controls.minPolarAngle = 0.8;
 controls.maxPolarAngle = 2.4;
 controls.dampingFactor = 0.07;
@@ -111,6 +109,39 @@ function addStar() {
 }
 Array(500).fill().forEach(addStar);
 
+const destinationGeometry = new THREE.SphereGeometry(10, 50, 50);
+const destinationMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: false, opacity: 1 });
+const destinationObject = new THREE.Mesh(destinationGeometry, destinationMaterial);
+destinationObject.position.set(50, 0, 0); // Example position, adjust as needed
+scene.add(destinationObject);
+backgroundObjects.push(destinationObject); // Add the destination object to the list of clickable background objects
+
+// Handle click events on the background objects
+function onClickBackgroundObject(event) {
+  const intersects = raycaster.intersectObjects(backgroundObjects, true);
+  if (intersects.length > 0) {
+    const selectedObject = intersects[0].object;
+    animateTravel(selectedObject.position);
+  }
+}
+
+// Animate travel to the selected destination
+function animateTravel(destination) {
+  const distance = camera.position.distanceTo(destination);
+  const direction = destination.clone().sub(camera.position).normalize();
+
+  new TWEEN.Tween(camera.position)
+    .to({ x: destination.x, y: destination.y, z: destination.z }, 2000)
+    .easing(TWEEN.Easing.Quadratic.InOut)
+    .onComplete(() => {
+      // Optional: Implement actions upon reaching the destination
+    })
+    .start();
+
+  camera.lookAt(destination);
+}
+
+
 // ANIMATION
 var r = 35;
 var theta = 0;
@@ -131,6 +162,8 @@ scene.add(spotLight);
 scene.add(ambientLight);
 scene.add(moon);
 scene.add(dode);
+scene.add(destinationObject);
+backgroundObjects.push(destinationObject);
 
 console.log("Scene polycount:", renderer.info.render.triangles);
 console.log("Active Drawcalls:", renderer.info.render.calls);
